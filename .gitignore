@@ -1,129 +1,120 @@
-# Byte-compiled / optimized / DLL files
-__pycache__/
-*.py[cod]
-*$py.class
+import time
+import urllib
+import sys
+import os
 
-# C extensions
-*.so
+os.system('clear')
+n = ("Wait for start...")
+bar = "\033[1;33;40m\n__________________________________________________________________\n"
+cut = "\033[1;33;40m\n\t\t+ + + + + + + + + + + + + + + + + +"
 
-# Distribution / packaging
-.Python
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-pip-wheel-metadata/
-share/python-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
-MANIFEST
+name = """\033[1;32;40m
+__________________________________________________________________
+\033[1;31;40m      __  __               _      ____        _   _
+\033[1;35;40m     |  \/  | ___  __ _   / \    |  _ \ _   _| \ | |
+\033[1;33;40m     | |\/| |/ _ \/ _` | / O \   | |_) | | | |  \| |
+\033[1;34;40m     | |  | |  __/ (_| |/ ___ \  |  _ <| |_| | |\  |
+\033[1;36;40m     |_|  |_|\___|\__, /_/   \_\ |_| \_\\____/|_| \_|
+\033[1;32;40m                  |___/
 
-# PyInstaller
-#  Usually these files are written by a python script from a template
-#  before PyInstaller builds the exe, so as to inject date/other infos into it.
-*.manifest
-*.spec
+\033[1;30;40m              [+] Tool By ERROR KILLER
+\033[1;32;40m__________________________________________________________________
+"""
+print(name, "")
 
-# Installer logs
-pip-log.txt
-pip-delete-this-directory.txt
 
-# Unit test / coverage reports
-htmlcov/
-.tox/
-.nox/
-.coverage
-.coverage.*
-.cache
-nosetests.xml
-coverage.xml
-*.cover
-*.py,cover
-.hypothesis/
-.pytest_cache/
+try:
+    f = open("auth.txt", "r")
+    auth = f.read()
+    f.close
+except:
+    wr = str(input("Paste Your Auth here :- "))
+    f = open("auth.txt", "w")
+    f.write(wr)
+    f.close
+    f = open("auth.txt", "r")
+    auth = f.read()
+    f.close
 
-# Translations
-*.mo
-*.pot
+try:
+    f = open("url.txt", "r")
+    f = open("url.txt", "r")
+    url1 = f.read()
+    f.close
+except:
+    wr = str(input("Paste Your URL here :- "))
+    f = open("url.txt", "w")
+    f.write(wr)
+    f.close
+    f = open("url.txt", "r")
+    url1 = f.read()
+    f.close
 
-# Django stuff:
-*.log
-local_settings.py
-db.sqlite3
-db.sqlite3-journal
+try:
+    import requests
 
-# Flask stuff:
-instance/
-.webassets-cache
 
-# Scrapy stuff:
-.scrapy
+except ImportError:
+    print('%s Requests isn\'t installed, installing now.')
+    os.system('pip3 install requests')
+    print('%s Requests has been installed.')
+    os.system('clear')
+    import requests
 
-# Sphinx documentation
-docs/_build/
 
-# PyBuilder
-target/
+def main():
+	for p in range(len(n)):
+		time.sleep(.1)
+		sys.stdout.write(n[p])
+		sys.stdout.flush()
 
-# Jupyter Notebook
-.ipynb_checkpoints
+	time.sleep(90)
+	os.system("clear")
+	print(name,"\n")
+	header = {"Host": "megarun.dialog.lk",
+              "Authorization": auth, "X-Unity-Version": "2018.3.0f2"}
+	url = url1
+	ss=0
+	td=0
+	while True:
+		size = 0
+		res = requests.get(url, headers=header)
+		resp = str(res)
+		if resp == '<Response [204]>':
+			print(bar)
+			print("\n\033[1;30;40m [-] ...No Data ... [-]")
+			print(bar)
+		elif resp == '<Response [200]>':
+			if res.text == '{"type":"data","size":10}':
+				td+=10
+				print(bar)
+				print("\n\033[1;32;40m [+] Congratulations! You have WON 10MB from Dialog Mega Run [+]")
+				print(cut)
+				print("\n\033[1;35;40m [*] Total from this session ⤑ "+str(td)+"MB [*]")
+				print(bar)
+			elif res.text == '{"type":"data","size":50}':
+				td+=50
+				print(bar)
+				print("\n\033[1;36;40m [+] Congratulations! You have WON 50MB from Dialog Mega Run [+]")
+				print(cut)
+				print("\n\033[1;35;40m [*] Total from this session ⤑ "+str(td)+"MB [*]")
+				print(bar)
+		else:
+			print(bar)
+			print("\n\033[1;31;40m [#] ...Check Again, I think You are Blocked User... [#]")
+			print(bar)
 
-# IPython
-profile_default/
-ipython_config.py
+		ss+=1
+		print("\033[1;34;40m\n",str(ss), "Please Wait For Next request",end="")
+		for i in range(180):
 
-# pyenv
-.python-version
+			pr = i/180*100
+			print("\033[1;36;40m\n>>> [+]",str(int(pr)) +"% ",end="")
 
-# pipenv
-#   According to pypa/pipenv#598, it is recommended to include Pipfile.lock in version control.
-#   However, in case of collaboration, if having platform-specific dependencies or dependencies
-#   having no cross-platform support, pipenv may install dependencies that don't work, or not
-#   install all needed dependencies.
-#Pipfile.lock
+			time.sleep(0.5)
+			sys.stdout.write("\033[F")
 
-# PEP 582; used by e.g. github.com/David-OConnor/pyflow
-__pypackages__/
 
-# Celery stuff
-celerybeat-schedule
-celerybeat.pid
 
-# SageMath parsed files
-*.sage.py
-
-# Environments
-.env
-.venv
-env/
-venv/
-ENV/
-env.bak/
-venv.bak/
-
-# Spyder project settings
-.spyderproject
-.spyproject
-
-# Rope project settings
-.ropeproject
-
-# mkdocs documentation
-/site
-
-# mypy
-.mypy_cache/
-.dmypy.json
-dmypy.json
-
-# Pyre type checker
-.pyre/
+if __name__ == "__main__":
+    main()
